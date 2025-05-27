@@ -28,9 +28,10 @@ if __name__ == "__main__":
     API_KEY = os.getenv("GOOGLE_API_KEY")
 
     client = genai.Client(api_key=API_KEY)
-    model_name = "gemini-2.0-flash"
+    model_name = "gemini-2.0-flash-lite"
 
-    models_list = client.models.list(config={"page_size": 5})  # get the list of models
+    models_list = client.models.list(
+        config={"page_size": 5})  # get the list of models
     model = None
 
     for model1 in models_list:  # find the model: gemini-2.0-flash-lite
@@ -44,7 +45,7 @@ if __name__ == "__main__":
 
     with gr.Blocks() as demo:
         chatbot_interface = gr.ChatInterface(
-            fn=chat, type="messages", title="Debug Chat", description="Hello world"
+            fn=chat, type="messages", title="Chat Bot", description="Hello world"
         )
         debug_checkbox = gr.Checkbox(False, label="Enable Debug Mode")
         debug_checkbox.change(fn=update_debug_state, inputs=debug_checkbox)
